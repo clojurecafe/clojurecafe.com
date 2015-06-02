@@ -1,8 +1,8 @@
 (ns ^:figwheel-always clojure-cafe.core
   (:require
     [om.core :as om :include-macros true]
-    [om.dom :as dom :include-macros true]))
-
+    [om.dom :as dom :include-macros true]
+    [clojure-cafe.schema :as schema]))
 
 (enable-console-print!)
 
