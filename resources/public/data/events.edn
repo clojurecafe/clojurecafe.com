@@ -1,0 +1,12 @@
+[
+{:start "2015-05-30T19:30:00+09:00"
+ :end "2015-05-30T21:30:00+09:00"
+ :name "Wursklojure"
+ :image "http://static1.squarespace.com/static/53b4405ee4b09093499ff081/53b48da8e4b04ba659c1bdf7/53cd5369e4b00a460e583e20/1405965162468/wurstkuche.jpg?format=1000w"
+ :description "A most delicious example event!"
+ :location {:confirmed? false
+            :name "Wurstküche"
+            :address "625 Lincoln Blvd, Venice, CA 90291"
+            :coordinates [33.99974 -118.464982]
+            :description "Sausage, beer and parens."}}
+]
