@@ -1,8 +1,8 @@
 (defproject clojure-cafe "0.1.0"
   :description "Public website for ClojureCafe."
   :url "http://www.clojurecafe.com"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :license {:name "The Unlicense"
+            :url "http://unlicense.org/UNLICENSE"}
 
   :dependencies [[org.clojure/clojure "1.7.0-beta3"]
                  [org.clojure/clojurescript "0.0-3211"]
