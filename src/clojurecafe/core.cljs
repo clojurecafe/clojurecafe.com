@@ -30,7 +30,7 @@
 (defn load-events [result-chan]
   (ajax/GET
     "/data/events.edn"
-    {:handler (fn [res] (go (>! result-chan {:success? true :data res})))
+    {:handler (fn [res] (go (>! result-chan {:success? true :data (schema/validate-events res)})))
      :error-handler (fn [res] (go (>! result-chan {:success? false :data res})))
      :response-format :edn}))
 

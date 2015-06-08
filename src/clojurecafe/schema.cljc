@@ -23,27 +23,35 @@
 
    :cljs
    (defn- url? [s]
-     ; FIXME: Didn't even bother to copy/paste some crappy regex.
-     (let [regex #".*"]
+     ;; FIXME: this is a tough one. copy-paste http://regexr.com/37i6s
+     ;; is crazy
+     (let [regex #"http[s]?:[//].*"]
        (some? (re-matches regex s)))))
 
 (def ISO-Date-Time (s/pred iso-date-time? 'ISO-Date-Time))
 
 (def Url (s/both s/Str (s/pred url? 'Url)))
 
-(def Event
+;; http://schema.org/Event
+;; https://developers.google.com/structured-data/rich-snippets/events
+;; Attributes map to google and schema.org rich snippets.
+(def Event 
   "Schema for a meetup event."
-  {:start ISO-Date-Time
-   :end ISO-Date-Time
+  {:context  Url
+   :type (s/enum :event)
+   :startDate ISO-Date-Time
+   :endDate ISO-Date-Time
    :name s/Str
    :image Url
    :description s/Str
-   :location {:confirmed? s/Bool
-              :name s/Str
+   :location {:type (s/enum :place :postal-address)
+              :eventStatus (s/enum :confirmed :pending :suggestion)
+              :name s/Str 
               :address s/Str
-              :coordinates [(s/one s/Num "Latititude")
-                            (s/one s/Num "Longitude")]
-              :description s/Str}})
+              (s/optional-key :geo) {:type (s/enum :geo-coordinates :geo-shape) ;;http://schema.org/GeoCoordinates
+                      :latitude s/Num
+                      :longitude s/Num}  
+              :description s/Str}})  
 
 (def Events [Event])
 
