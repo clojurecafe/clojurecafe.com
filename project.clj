@@ -1,4 +1,4 @@
-(defproject clojure-cafe "0.1.0"
+(defproject clojurecafe "0.1.0"
   :description "Public website for ClojureCafe."
   :url "http://www.clojurecafe.com"
   :license {:name "The Unlicense"
@@ -23,9 +23,9 @@
     :builds [{:id "dev"
               :source-paths ["src"]
 
-              :figwheel { :on-jsload "clojure-cafe.core/on-js-reload" }
+              :figwheel { :on-jsload "clojurecafe.core/on-js-reload" }
 
-              :compiler {:main clojure-cafe.core
+              :compiler {:main clojurecafe.core
                          :asset-path "js/compiled/out"
                          :output-to "resources/public/js/compiled/clojure_cafe.js"
                          :output-dir "resources/public/js/compiled/out"
@@ -33,7 +33,7 @@
              {:id "min"
               :source-paths ["src"]
               :compiler {:output-to "resources/public/js/compiled/clojure_cafe.js"
-                         :main clojure-cafe.core
+                         :main clojurecafe.core
                          :optimizations :advanced
                          :pretty-print false}}]}
 

@@ -1,11 +1,11 @@
-(ns ^:figwheel-always clojure-cafe.core
+(ns ^:figwheel-always clojurecafe.core
   (:require
     [ajax.core :as ajax]
     [cljs.core.async :as async :refer [<! >! chan close! timeout]]
     [om.core :as om :include-macros true]
     [om.dom :as dom :include-macros true]
     [sablono.core :as html :refer-macros [html]]
-    [clojure-cafe.schema :as schema])
+    [clojurecafe.schema :as schema])
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
 

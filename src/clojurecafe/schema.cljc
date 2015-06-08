@@ -1,6 +1,6 @@
 (ns ^{:doc "Schemas and helpers."
       :figwheel-always true}
-  clojure-cafe.schema
+  clojurecafe.schema
   #?(:cljs
      (:require [schema.core :as s :include-macros true]))
   #?@(:clj [
