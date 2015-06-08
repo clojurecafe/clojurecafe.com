@@ -4,6 +4,7 @@
     [cljs.core.async :as async :refer [<! >! chan close! timeout]]
     [om.core :as om :include-macros true]
     [om.dom :as dom :include-macros true]
+    [sablono.core :as html :refer-macros [html]]
     [clojure-cafe.schema :as schema])
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
@@ -42,13 +43,23 @@
 
 (load-events result-chan)
 
-(om/root
-  (fn [data owner]
-    (reify om/IRender
-      (render [_]
-        (dom/h1 nil (:text data)))))
-  app-state
-  {:target (. js/document (getElementById "app"))})
+(defn calendar-widget [events]
+  (om/component
+   (html [:div "Hello bob!"
+          [:ul (for [n (range 1 10)]
+                 [:li {:key n} n])]
+          (html/submit-button "React!")])))
+
+;; (om/root
+;;   (fn [data owner]
+;;     (reify om/IRender
+;;       (render [_]
+;;         (dom/h1 nil (:text data)))))
+;;   app-state
+;;   {:target (. js/document (getElementById "app"))})
+
+;; just paste from sablono readme
+(om/root calendar-widget (:events @app-state) {:target js/document.body})
 
 
 (defn on-js-reload []
