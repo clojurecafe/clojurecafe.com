@@ -22,7 +22,10 @@
 
 (defn success-handler [res]
   (log "Got event data: " res)
-  (swap! app-state assoc :events res))
+  (swap! app-state assoc :events res)
+  (swap! app-state assoc :events-validation (schema/validate-events res))
+  (let [schema-errors (:events-validation @app-state)]
+    (if schema-errors (log "Event data validation errors: " schema-errors))))
 
 (defn error-handler [{:keys [status status-text]}]
   (log "Error: " status " " status-text))
@@ -30,7 +33,7 @@
 (defn load-events [result-chan]
   (ajax/GET
     "/data/events.edn"
-    {:handler (fn [res] (go (>! result-chan {:success? true :data (schema/validate-events res)})))
+    {:handler (fn [res] (go (>! result-chan {:success? true :data res})))
      :error-handler (fn [res] (go (>! result-chan {:success? false :data res})))
      :response-format :edn}))
 

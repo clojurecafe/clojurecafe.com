@@ -55,6 +55,7 @@
 
 (def Events [Event])
 
-(defn validate-event [event] (s/validate Event event))
-
-(defn validate-events [events] (s/validate Events events))
+(defn validate-event! [event] (s/validate Event event))
+(defn validate-event [event] (s/check Event event))
+(defn validate-events! [events] (s/validate Events events))
+(defn validate-events [events] (s/check Events events))
