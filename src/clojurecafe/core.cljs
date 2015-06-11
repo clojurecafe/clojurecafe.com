@@ -30,7 +30,7 @@
 (defn error-handler [{:keys [status status-text]}]
   (log "Error: " status " " status-text))
 
-(defn load-events [result-chan]
+(defn get-events [result-chan]
   (ajax/GET
     "/data/events.edn"
     {:handler (fn [res] (go (>! result-chan {:success? true :data res})))
@@ -44,7 +44,7 @@
           {:keys [success? data]} result]
       (if success? (success-handler data) (error-handler data)))))
 
-(load-events result-chan)
+(get-events result-chan)
 
 (defn calendar-widget [events]
   (om/component
