@@ -48,20 +48,23 @@
 
 (defn calendar-widget [events]
   (om/component
-   (html [:div "Hello bob!"
-          [:ul (for [n (range 1 10)]
-                 [:li {:key n} n])]
-          (html/submit-button "React!")])))
+   (html [:div {:id "events"}
+          (for [event events]
+            [:ul {:id (:type event)}
+             [:li (:start-date event)]
+             [:li (:end-date event)]
+             [:li (:name event)]
+             [:ul {:id "location"}
+              (let [location (:location event)]
+                [:li (:type location)]
+                [:li (:event-status location)]
+                [:li (:name location)]
+                [:li (:address location)]
+                [:li (:latitude  (:geo location))]
+                [:li (:longitude (:geo location))]
+                [:li (:description location)])]])
+          (html/submit-button "React!")] )))
 
-;; (om/root
-;;   (fn [data owner]
-;;     (reify om/IRender
-;;       (render [_]
-;;         (dom/h1 nil (:text data)))))
-;;   app-state
-;;   {:target (. js/document (getElementById "app"))})
-
-;; just paste from sablono readme
 (om/root calendar-widget (:events @app-state) {:target js/document.body})
 
 

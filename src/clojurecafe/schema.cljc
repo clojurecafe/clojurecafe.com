@@ -39,13 +39,13 @@
   "Schema for a meetup event."
   {:context  Url
    :type (s/enum :event)
-   :startDate ISO-Date-Time
-   :endDate ISO-Date-Time
+   :start-date ISO-Date-Time
+   :end-date ISO-Date-Time
    :name s/Str
    :image Url
    :description s/Str
    :location {:type (s/enum :place :postal-address)
-              :eventStatus (s/enum :confirmed :pending :suggestion)
+              :event-status (s/enum :confirmed :pending :suggestion)
               :name s/Str 
               :address s/Str
               (s/optional-key :geo) {:type (s/enum :geo-coordinates :geo-shape) ;;http://schema.org/GeoCoordinates
