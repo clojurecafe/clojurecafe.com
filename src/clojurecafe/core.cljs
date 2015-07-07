@@ -46,9 +46,9 @@
 
 (get-events result-chan)
 
-(defn calendar-widget [events]
+(defn calendar-widget [{:keys [events] } ]
   (om/component
-   (html [:div {:id "events"}
+   (html [:ul {:id "events"}
           (for [event events]
             [:ul {:id (:type event)}
              [:li (:start-date event)]
@@ -62,14 +62,17 @@
                 [:li (:address location)]
                 [:li (:latitude  (:geo location))]
                 [:li (:longitude (:geo location))]
-                [:li (:description location)])]])
-          (html/submit-button "React!")] )))
+                [:li (:description location)])]])] )))
 
-(om/root calendar-widget (:events @app-state) {:target js/document.body})
+(om/root calendar-widget
+         ;;         (:events @app-state)
+         app-state
+         {:target js/document.body}
+         )
 
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
+  (swap! app-state update-in [:__figwheel_counter] inc)
 )

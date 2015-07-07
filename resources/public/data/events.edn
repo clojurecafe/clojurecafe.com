@@ -15,4 +15,20 @@
                   :longitude -118.464982
                   }
             :description "Sausage, beer and parens."}}
+{:context "http:/schema.org"
+ :type :event
+ :start-date "2015-05-31T19:30:00+09:00"
+ :end-date "2015-05-31T21:30:00+09:00"
+ :name "Wursklojure (Again)"
+ :image "http://static1.squarespace.com/static/53b4405ee4b09093499ff081/53b48da8e4b04ba659c1bdf7/53cd5369e4b00a460e583e20/1405965162468/wurstkuche.jpg?format=1000w"
+ :description "A most delicious example event!"
+ :location {:type :place
+            :event-status :pending
+            :name "Wurstküche"
+            :address "625 Lincoln Blvd, Venice, CA 90291"
+            :geo {:type :geo-coordinates
+                  :latitude 33.99974
+                  :longitude -118.464982
+                  }
+            :description "Sausage, beer and parens."}}
 ]
