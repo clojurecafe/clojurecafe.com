@@ -46,7 +46,7 @@
 
 (get-events result-chan)
 
-(defn calendar-widget [{:keys [events] } ]
+(defn calendar-widget [{:keys [events]} ]
   (om/component
    (html [:ul {:id "events"}
           (for [event events]
@@ -54,6 +54,7 @@
              [:li (:start-date event)]
              [:li (:end-date event)]
              [:li (:name event)]
+             [:img {:src (:image event)}]
              [:ul {:id "location"}
               (let [location (:location event)]
                 [:li (:type location)]
