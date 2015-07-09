@@ -4,13 +4,14 @@
   :license {:name "The Unlicense"
             :url "http://unlicense.org/UNLICENSE"}
 
-  :dependencies [[org.clojure/clojure "1.7.0-beta3"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "0.0-3211"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [cljs-ajax "0.3.11"]
                  [sablono "0.3.4"]
                  [org.omcljs/om "0.8.8"]
-                 [prismatic/schema "0.4.3"]]
+                 [prismatic/schema "0.4.3"]
+                 [com.andrewmcveigh/cljs-time "0.3.10"]]
 
   :plugins [[lein-cljsbuild "1.0.5"]
             [lein-figwheel "0.3.3"]]
@@ -43,7 +44,7 @@
              :css-dirs ["resources/public/css"] ;; watch and update CSS
 
              ;; Start an nREPL server into the running figwheel process
-             ;; :nrepl-port 7888
+             :nrepl-port 7888
 
              ;; Server Ring Handler (optional)
              ;; if you want to embed a ring handler into the figwheel http-kit

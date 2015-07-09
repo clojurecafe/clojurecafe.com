@@ -5,7 +5,9 @@
     [om.core :as om :include-macros true]
     [om.dom :as dom :include-macros true]
     [sablono.core :as html :refer-macros [html]]
-    [clojurecafe.schema :as schema])
+    [clojure.string :as str]
+    [clojurecafe.schema :as schema]
+    [cljs-time.format :as format])
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
 
@@ -46,30 +48,53 @@
 
 (get-events result-chan)
 
+(defn pretty-date [tzstring]
+  (format/unparse (format/formatter "hh:mma on dow, MMM d, yyyy")
+   (format/parse (format/formatter "yyyy-MM-dd'T'HH:mm:ssZZ")
+                 tzstring)))
 (defn calendar-widget [{:keys [events]} ]
+  "Microdata formatted html for an event"
+  ;;FIXME: this should be more functions bashing on the structure.
   (om/component
-   (html [:ul {:id "events"}
+   (html [:ul {:id "events"} 
           (for [event events]
-            [:ul {:id (:type event)}
-             [:li (:start-date event)]
-             [:li (:end-date event)]
-             [:li (:name event)]
-             [:img {:src (:image event)}]
-             [:ul {:id "location"}
-              (let [location (:location event)]
-                [:li (:type location)]
-                [:li (:event-status location)]
-                [:li (:name location)]
-                [:li (:address location)]
-                [:li (:latitude  (:geo location))]
-                [:li (:longitude (:geo location))]
-                [:li (:description location)])]])] )))
-
-(om/root calendar-widget
-         ;;         (:events @app-state)
-         app-state
-         {:target js/document.body}
-         )
+            [:div {:id (:type event)
+                   :item-type (str (:context event) "/" (str/capitalize (name (:type event))))
+                   :item-prop ""}
+             [:li
+              {:item-prop "startDate"
+               :content (:start-date event)}
+              (pretty-date (:start-date event))]
+             [:li {:item-prop "startDate"
+                   :content (:end-date event)}
+              (pretty-date (:end-date event))]
+             [:li {:item-prop "name"} (:name event)]
+             [:span {:item-prop "image"}
+              [:img {:src (:image event) :style {:max-height "200px"}}]]
+             (let [location (:location event)]
+               [:ul {:item-prop "location"
+                     :item-scope ""
+                     :item-type (str (:context event) "/" (str/capitalize (name (:type location))))}
+                [:li {:item-prop "eventStatus"}
+                 (str "Status: " (:event-status location))]
+                [:li {:itemp-prop "name"} (:name location)]
+                [:li [:address {:item-prop "address"} (:address location)]]
+                [:li
+                 {:item-prop "geo"
+                  :item-scope ""
+                  :item-type "http://schema.org/GeoCoordinates"}
+                 (str (:latitude  (:geo location)) ", " (:longitude (:geo location)))
+                 [:meta {:item-prop "latitude"
+                         :content (:latitude (:geo location))}]
+                 [:meta {:item-prop "longitude"
+                         :content (:longitude (:geo location))}]]
+                [:li  {:item-prop "description"}
+                 (:description location)]])]) ])))
+  (om/root calendar-widget
+           ;;         (:events @app-state)
+           app-state
+           {:target js/document.body}
+           )
 
 
 (defn on-js-reload []
